@@ -1,12 +1,23 @@
 {
   "name": "0001-distributed-url-shortener-with-analytics",
   "version": "1.0.0",
+  "type": "module",
   "description": "> base62 ID generation under high write concurrency (avoid collisions without a single bottleneck — look at Postgres sequences vs. Snowflake-style IDs), a hot-path redirect service that must be fast (Redis cache in front of Postgres, cache invalidation on updates), and a click-analytics pipeline (batched writes, time-bucketed aggregation, maybe TimescaleDB/partitioned tables). Good for learning read/write splitting and caching strategy.",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3"
+  }
 }

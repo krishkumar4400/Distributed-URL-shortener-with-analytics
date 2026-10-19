@@ -109,3 +109,14 @@ url-shortener/
 ├── package.json
 └── README.md
 ```
+
+## Authentication API
+
+The API uses PostgreSQL-backed users and opaque, revocable sessions. Copy `.env.example` to `.env`, set `DATABASE_URL`, apply `infrastructure/db/migrations/001_create_auth_tables.sql` to that database, then run `npm install` and `npm start`.
+
+- `POST /api/auth/register` accepts `{ "name", "email", "password" }` and creates an account.
+- `POST /api/auth/login` accepts `{ "email", "password" }`.
+- `POST /api/auth/logout` revokes the current session.
+- `GET /api/auth/me` returns the current authenticated user.
+
+Successful registration and login set an HTTP-only session cookie. The cookie is `Secure` in production; clients must send cookies on authenticated requests. Passwords require at least 12 characters. Credential endpoints are rate-limited, and authentication responses are not cacheable.
